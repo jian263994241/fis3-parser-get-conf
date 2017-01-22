@@ -1,0 +1,35 @@
+{
+  "name": "fis3-parser-get-conf",
+  "version": "1.0.0",
+  "description": "fis3发布时提供js、html或css代码获取服务器端配置信息的能力。",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -report html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CaroseKYS/fis3-parser-get-conf"
+  },
+  "keywords": [
+    "fis3",
+    "plugin",
+    "javascript",
+    "html",
+    "css"
+  ],
+  "author": {
+    "name": "康永胜",
+    "email": "kys8823@163.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CaroseKYS/fis3-parser-get-conf/issues"
+  },
+  "homepage": "https://github.com/CaroseKYS/fis3-parser-get-conf",
+  "devDependencies": {
+    "istanbul": "~0.4.5",
+    "mocha": "~2.5.2",
+    "should": "~11.1.1",
+    "rewire": "^2.5.2"
+  }
+}
