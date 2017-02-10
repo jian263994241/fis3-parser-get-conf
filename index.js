@@ -1,6 +1,8 @@
 var oConf = null;
 var ifExcluded;
 var path = require('path');
+var fs = require('fs');
+
 /**
  * 发布过程中的 __getConf() 与 __prependContextPath() 方法
  * @author 康永胜
@@ -13,9 +15,10 @@ var path = require('path');
 module.exports = function(content, file, opt){
   if (!oConf) {
     try{
-      oConf = require(path.join(process.cwd(), opt['confFile'] || 'fdp-conf.js'));
+      oConf = _getConfContent(opt['confFile']);
     }catch(e){
-      throw 'fis3-parser-get-conf|当前目录中没有配置文件。';
+      console.log(e);
+      throw 'fis3-parser-get-conf|获取配置信息失败。';
     }
 
     ifExcluded = opt.ifExcluded || _ifExcluded;
@@ -77,4 +80,23 @@ function _getPropertyTool(propertiesStr){
  */
 function _ifExcluded(propertiesStr){
   return false;
+}
+
+/**
+ * 获取配置文件的内容
+ * @author 康永胜
+ * @date   2017-02-10T10:37:44+0800
+ * @param  {String}                 confFile [配置文件名称]
+ * @return {Object}                          [配置文件内容]
+ */
+function _getConfContent(confFile){
+  var confFile = path.join(process.cwd(), confFile || 'fdp-config.js');
+
+  if(!fs.existsSync(confFile)){
+    confFile = path.join(process.cwd(), 'fdp-conf.js');
+  }
+
+  oConf = require(confFile);
+
+  return oConf;
 }
