@@ -15,7 +15,8 @@
 ### 配置项
     fis.match('*', {
       parser: fis.plugin('get-conf', {
-        confFile: "./conf.json", 
+        confFile: "./conf.json", /*配置文件名称*/
+        contextPath: "/app",     /*上下文路径*/
         ifExcluded: function(propStr){
           return propStr in {'redis.pass': 1};
         }
@@ -27,9 +28,12 @@
 
 ### 在js文件中获取配属性
     var url = __getConf('fdp-sso-client.fdp-sso-server-uri');
+    var path = __context(); /* ==> /app */
+    var path = __context('/test'); /* ==> /app/test */
 
 ### 在html文件中获取配属性
     <a href="__getConf(fdp-sso-client.fdp-sso-server-uri)"></a>
+    <a href="__context(/index.html)"></a>
 
 ### 关于__getConf方法的参数
 `__getConf` 方法的参数如果是用 `.` 分割，则表示是递归获取对象属性。如 `__getConf(fdp-sso-client.fdp-sso-server-uri)` 表示获取配置文件中 `fdp-sso-client` 对象的 `fdp-sso-server-uri` 属性值。

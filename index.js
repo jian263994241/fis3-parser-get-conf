@@ -1,10 +1,11 @@
 var oConf = null;
+var contextPath = '';
 var ifExcluded;
 var path = require('path');
 var fs = require('fs');
 
 /**
- * 发布过程中的 __getConf() 与 __prependContextPath() 方法
+ * 发布过程中的 __getConf() 与 __context() 方法
  * @author 康永胜
  * @date   2017-01-12T17:14:31+0800
  * @param  {[type]}                 content [description]
@@ -13,6 +14,8 @@ var fs = require('fs');
  * @return {[type]}                         [description]
  */
 module.exports = function(content, file, opt){
+  contextPath = opt['contextPath'] || '';
+
   if (!oConf) {
     try{
       oConf = _getConfContent(opt['confFile']);
@@ -33,10 +36,22 @@ module.exports = function(content, file, opt){
       }
       return prop;
     });
-    return content;
-  }else{
+
+    /*__context 方法*/
+    content = content.replace(/__context\(\s*(['"]?)([^)]*?)\1\s*\)/ig, function(all, value1, value2){
+      value2 = value2 || '';
+      value2 = contextPath + value2;
+      if(file.isJsLike){
+        value1 = value1 || "'";
+        value2 = value1 + value2 + value1;
+      }
+      return value2;
+    });
+
     return content;
   }
+
+  return content;
 }
 
 /**

@@ -34,8 +34,10 @@ describe('index.js测试', function(){
     });
 
     it('获取作者姓名属性', function(){
-      content = '<p class="__getConf(author.name)"></p>';
-      index(content, file, opts).should.equal('<p class="康永胜"></p>');
+      opts['contextPath'] = '/app'
+      content = '<p class="__getConf(author.name)" data-target="__context(/test)"></p>';
+      index(content, file, opts).should.equal('<p class="康永胜" data-target="/app/test"></p>');
+      delete opts['contextPath'];
     });
 
     it('css类型文件', function(){
@@ -45,9 +47,9 @@ describe('index.js测试', function(){
     });
 
     it('js类型文件', function(){
-      content = 'var name = __getConf("name")';
+      content = '__getConf("name");__context("/app");__context(/app);__context()';
       file = {isJsLike: true};
-      index(content, file, opts).should.equal('var name = "fis3-parser-get-conf"');
+      index(content, file, opts).should.equal('"fis3-parser-get-conf";"/app";\'/app\';\'\'');
     });
 
     it('非js html css类型的文件', function(){
