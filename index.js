@@ -47,6 +47,11 @@ module.exports = function(content, file, opt){
       }
       return value2;
     });
+    
+    /*__seajs_mod_id__ 方法*/
+    content = content.replace(/__seajs_mod_id__/ig, function(all){
+      return 'document.getElementById("' + file.subpath + '").src';
+    });
 
     return content;
   }
