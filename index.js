@@ -50,7 +50,7 @@ module.exports = function(content, file, opt){
     
     /*__seajs_mod_id__ 方法*/
     content = content.replace(/__seajs_mod_id__/ig, function(all){
-      return 'document.getElementById("' + file.subpath + '").src';
+      return 'seajs.data.ids[\'' + file.subpath + '\']';
     });
 
     return content;

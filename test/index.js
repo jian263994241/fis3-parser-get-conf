@@ -52,6 +52,12 @@ describe('index.js测试', function(){
       index(content, file, opts).should.equal('"fis3-parser-get-conf";"/app";\'/app\';\'\'');
     });
 
+    it('js类型文件：添加获取模块id的方法测试', function(){
+      content = '__seajs_mod_id__';
+      file = {isJsLike: true, subpath: '/subpath'};
+      index(content, file, opts).should.equal("seajs.data.ids['/subpath']");
+    });
+
     it('非js html css类型的文件', function(){
       content = '<p class="__getConf(author.name)"></p>';
       file = {};
