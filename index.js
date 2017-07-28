@@ -47,7 +47,7 @@ module.exports = function(content, file, opt){
       }
       return value2;
     });
-    
+
     /*__seajs_mod_id__ 方法*/
     content = content.replace(/__seajs_mod_id__/ig, function(all){
       return 'seajs.data.ids[\'' + file.subpath + '\']';
@@ -70,7 +70,7 @@ function _getPropertyTool(propertiesStr){
   if(ifExcluded(propertiesStr)){
     return '';
   }
-  
+
   propertiesStr = propertiesStr || '';
   propertiesStr = propertiesStr.trim();
 
@@ -110,13 +110,21 @@ function _ifExcluded(propertiesStr){
  * @return {Object}                          [配置文件内容]
  */
 function _getConfContent(confFile){
-  var confFile = path.join(process.cwd(), confFile || 'fdp-config.js');
+  var type = (typeof confFile);
 
-  if(!fs.existsSync(confFile)){
-    confFile = path.join(process.cwd(), 'fdp-conf.js');
+  if(type === 'string'){
+    var confFile = path.join(process.cwd(), confFile);
+
+    if(!fs.existsSync(confFile)){
+      confFile = {};
+    }else{
+      oConf = require(confFile);
+    }
+  }else if(type === 'object'){
+    oConf = confFile;
+  }else{
+    oConf = {};
   }
-
-  oConf = require(confFile);
 
   return oConf;
 }

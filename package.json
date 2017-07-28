@@ -1,6 +1,6 @@
 {
-  "name": "fis3-parser-get-conf",
-  "version": "2.0.0",
+  "name": "fis3-parser-getconf",
+  "version": "2.0.1",
   "description": "fis3发布时提供js、html或css代码获取服务器端配置信息的能力。",
   "main": "index.js",
   "scripts": {
